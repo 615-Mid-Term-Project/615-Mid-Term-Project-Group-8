@@ -154,96 +154,96 @@ chem_list <- distinct(strawb_chem, details)
 
 chem_list <- rbind2(chem_list,distinct(strawb_other, details))
 
-
-
-strawb_california_2020 <- strawb %>% filter((State == "CALIFORNIA")&(Year==2020))
-
-
-##  aa <- strawb$Year[4]
-## GLUFOSINATE-AMMONIUM = 128850
-
-
-
-strawb__2019_Californi_GLUFOSINATE_AMMONIUM <- strawb_herb %>% filter((State=="CALIFORNIA")&
-                                                                        (Year==2019)&
-                                                                        (details=="GLUFOSINATE-AMMONIUM = 128850"))
-
-### this table is full of repetition and multiple related measurements!!
-
-################################################################
-
-### let's look at the other states
-
-
-distinct(strawb_chem, State)
-
-######################################################################################
-### focus on Florida
-
-strawb_chem_FLORIDA_2020 <- strawb_chem %>% filter((State == "FLORIDA")&(Year==2020))
-
-View(strawb_chem_FLORIDA_2020)
-
-## there's nothing in strawb_chem_FLORIDA_2020 -- California was the same way
-## probably drop year 2020
-
-strawb_chem_FLORIDA_2019 <- strawb_chem %>% filter((State == "FLORIDA")&(Year==2019))
-
-View(strawb_chem_FLORIDA_2019)
-
-
-
-
-
-strawb_herb_FLORIDA_2019  <- strawb_herb %>% filter((State == "FLORIDA")&(Year==2019))
-
-View(strawb_herb_FLORIDA_2019)
-
-## get rid of as much redundant data as possible
-
-
-strawb_herb_FLORIDA_2019 <- drop_no_info_cols(strawb_herb_FLORIDA_2019)
-
-View(strawb_herb_FLORIDA_2019)
-
-
-## this is a table for Florida Strawberries Herbicides 2019
-## get rid of the redundant Domain.Category column
-
-strawb_herb_FLORIDA_2019 %<>% select(-Domain.Category)
-
-
-
-View(strawb_herb_FLORIDA_2019)
-
-
-strawb_herb_FLORIDA_2019_a <- straw_h %>% pivot_wider()
-
-
-###  Note that there is still a lot of clean-up left to do -- 
-##   which could have been done earlier in the larger table
-##   but we'll do it here 
-##   also note that there is no data available -- except for the identity
-##   of the herbicides used
-
-
-strawb_herb_FLORIDA_2019 %<>% separate(col = items,
-                                      into = c("it", "what"), 
-                                      sep = "-",
-                                      fill = "right")
-
-### drop column it
-
-strawb_herb_FLORIDA_2019 %<>% select(-it)
-
-## relocate details to the first column
-
-strawb_herb_FLORIDA_2019 %<>%  relocate(details, .before = what)
-
-View(strawb_herb_FLORIDA_2019)
-
-## rename "details column to "herbicides"
-strawb_herb_FLORIDA_2019 %<>% rename(herbicides = details)
+# 
+# 
+# strawb_california_2020 <- strawb %>% filter((State == "CALIFORNIA")&(Year==2020))
+# 
+# 
+# ##  aa <- strawb$Year[4]
+# ## GLUFOSINATE-AMMONIUM = 128850
+# 
+# 
+# 
+# strawb__2019_Californi_GLUFOSINATE_AMMONIUM <- strawb_herb %>% filter((State=="CALIFORNIA")&
+#                                                                         (Year==2019)&
+#                                                                         (details=="GLUFOSINATE-AMMONIUM = 128850"))
+# 
+# ### this table is full of repetition and multiple related measurements!!
+# 
+# ################################################################
+# 
+# ### let's look at the other states
+# 
+# 
+# distinct(strawb_chem, State)
+# 
+# ######################################################################################
+# ### focus on Florida
+# 
+# strawb_chem_FLORIDA_2020 <- strawb_chem %>% filter((State == "FLORIDA")&(Year==2020))
+# 
+# View(strawb_chem_FLORIDA_2020)
+# 
+# ## there's nothing in strawb_chem_FLORIDA_2020 -- California was the same way
+# ## probably drop year 2020
+# 
+# strawb_chem_FLORIDA_2019 <- strawb_chem %>% filter((State == "FLORIDA")&(Year==2019))
+# 
+# View(strawb_chem_FLORIDA_2019)
+# 
+# 
+# 
+# 
+# 
+# strawb_herb_FLORIDA_2019  <- strawb_herb %>% filter((State == "FLORIDA")&(Year==2019))
+# 
+# View(strawb_herb_FLORIDA_2019)
+# 
+# ## get rid of as much redundant data as possible
+# 
+# 
+# strawb_herb_FLORIDA_2019 <- drop_no_info_cols(strawb_herb_FLORIDA_2019)
+# 
+# View(strawb_herb_FLORIDA_2019)
+# 
+# 
+# ## this is a table for Florida Strawberries Herbicides 2019
+# ## get rid of the redundant Domain.Category column
+# 
+# strawb_herb_FLORIDA_2019 %<>% select(-Domain.Category)
+# 
+# 
+# 
+# View(strawb_herb_FLORIDA_2019)
+# 
+# 
+# strawb_herb_FLORIDA_2019_a <- straw_h %>% pivot_wider()
+# 
+# 
+# ###  Note that there is still a lot of clean-up left to do -- 
+# ##   which could have been done earlier in the larger table
+# ##   but we'll do it here 
+# ##   also note that there is no data available -- except for the identity
+# ##   of the herbicides used
+# 
+# 
+# strawb_herb_FLORIDA_2019 %<>% separate(col = items,
+#                                       into = c("it", "what"), 
+#                                       sep = "-",
+#                                       fill = "right")
+# 
+# ### drop column it
+# 
+# strawb_herb_FLORIDA_2019 %<>% select(-it)
+# 
+# ## relocate details to the first column
+# 
+# strawb_herb_FLORIDA_2019 %<>%  relocate(details, .before = what)
+# 
+# View(strawb_herb_FLORIDA_2019)
+# 
+# ## rename "details column to "herbicides"
+# strawb_herb_FLORIDA_2019 %<>% rename(herbicides = details)
 
 
 ## Now you can clearly see that this is a small table of 5 herbicides measured in 5 ways
@@ -272,3 +272,8 @@ pesticides
 strawb_select <- select(strawb, Year, State, items, discription, units, dname, type, details, Value)
 
 strawb_select
+
+pesticides <- filter(pesticides, !is.na(Pesticide))
+strawb_select <- filter(strawb_select, !is.na(details))
+
+strawb_select %<>% separate(col = details, into = c("chemical name", "chemical id"), sep = "=", fill = "right")
