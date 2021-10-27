@@ -276,4 +276,9 @@ strawb_select
 pesticides <- filter(pesticides, !is.na(Pesticide))
 strawb_select <- filter(strawb_select, !is.na(details))
 
-strawb_select %<>% separate(col = details, into = c("chemical name", "chemical id"), sep = "=", fill = "right")
+strawb_select %<>% separate(col = details, into = c("chemical_name", "chemical_id"), sep = "=", fill = "right")
+
+pesticides <- mutate(pesticides, Pesticide = toupper(Pesticide))
+strawb_select <- mutate(strawb_select, chemical_name = trimws(chemical_name))
+
+joined <- inner_join(strawb_select, pesticides, by = c("chemical_name" = "Pesticide"))
