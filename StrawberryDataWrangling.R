@@ -30,7 +30,7 @@ drop_no_info_cols <- function(df){
 
 strawb <- drop_no_info_cols(strawb)
 
-
+##
 
 #############################################################
 
