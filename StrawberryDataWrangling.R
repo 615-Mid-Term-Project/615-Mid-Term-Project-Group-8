@@ -238,6 +238,7 @@ pesticides
 strawb_select <- select(strawb, Year, State, items, discription, units, dname, type, details, Value)
 strawb_select
 
+#去除"Pesticide"和"details"的NA项
 pesticides <- filter(pesticides, !is.na(Pesticide))
 strawb_select <- filter(strawb_select, !is.na(details))
 
@@ -246,8 +247,18 @@ strawb_select %<>% separate(col = details,
                             sep = "=", 
                             fill = "right")
 
+#使"Pesticide"变成大写，这样可以match数据集strawb里的大写
 pesticides <- mutate(pesticides, Pesticide = toupper(Pesticide))
+#trimws：删除前导/尾随空格
 strawb_select <- mutate(strawb_select, chemical_name = trimws(chemical_name))
 
-joined <- inner_join(strawb_select, pesticides, by = c("chemical_name" = "Pesticide"))
+joined <- inner_join(strawb_select, pesticides, 
+                     by = c("chemical_name" = "Pesticide"))
+
+#############################################################
+
+strawb <- read.csv("Strawberries.csv")
+
+
+
 
