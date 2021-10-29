@@ -7,17 +7,25 @@ pest <- read.csv("Pesticides(1).csv",fileEncoding = "latin1")
 
 names(pest)[1] <- "Pesticide"
 
-#column we want
-#chemical; chemical type (insecticide, herbicide, fungicide, fertilizer);
-#toxicity-human/bee;toxicity-level;state;year;measurement(s)
+#column we want:
+#chemical; 
+#chemical type (insecticide, herbicide, fungicide, fertilizer);
+#toxicity-human/bee;
+#toxicity-level;
+#state;
+#year;
+#measurement(s)
 
 strawb<-strawb %>% mutate(NEWID = row_number())
 pest1 <- subset(pest, Pesticide != "" )
 
+#drop no info column
 drop_no_info_cols <- function(df){
   cnames = colnames(strawb)
   T = NULL
-  for(i in 1:ncol(df)){T <- c(T, nrow(unique(df[i])))}
+  for(i in 1:ncol(df)){
+    T <- c(T, nrow(unique(df[i])))
+    }
   drop_cols <- cnames[which(T == 1)]
   return(select(df, !all_of(drop_cols)))
 }
@@ -39,6 +47,7 @@ strawb %<>%  separate(col=Domain,
 strawb %<>% 
   mutate(Chemicals = Domain.Category) %>% 
   relocate(Chemicals, .after = Domain.Category) 
+
 bb <- strawb$Chemicals %>% str_detect("CHEM")
 
 ind_C <- (!bb)*(1:dim(strawb)[1])
@@ -47,10 +56,13 @@ r1 <- ind_C[ind_C > 0]
 
 strawb$Chemicals[r1] <- " "
 
+#sepaerate Chemicals
+
 strawb %<>% separate(col = Chemicals,
                      into = c("title", "details"),
                      sep = ":",
                      fill = "right")
+
 strawb %<>% mutate(details = str_extract(str_trim(details) ,"[^(].*[^)]") )
 
 strawb %<>% mutate(chemicaltype = str_trim("chemical type"))
@@ -60,6 +72,7 @@ strawb_chem <- strawb %>% filter(("chemical type"=="FUNGICIDE")|
                                    ("chemical type"=="INSECTICIDE"))
 
 strawb_other <- strawb %>% filter("chemical type"=="OTHER")
+
 #head(strawb_other)
 strawb_na <- strawb %>% filter(is.na("chemical type")==TRUE)
 
