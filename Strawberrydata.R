@@ -6,6 +6,7 @@ strawb <- read.csv("Strawberries.csv",fileEncoding = "latin1")
 pest <- read.csv("Pesticides(1).csv",fileEncoding = "latin1")
 
 names(pest)[1] <- "Pesticide"
+
 #column we want
 #chemical; chemical type (insecticide, herbicide, fungicide, fertilizer);
 #toxicity-human/bee;toxicity-level;state;year;measurement(s)
@@ -30,7 +31,7 @@ strawb %<>% separate(col=Data.Item,
                      fill = "right")
 #Seperate Domain
 strawb %<>%  separate(col=Domain,
-                      into = c("dname", "type" ), 
+                      into = c("dname", "chemical type" ), 
                       sep = ",", 
                       fill = "right")
 #Copy Domain.Category and then rename it to chemicals
@@ -49,15 +50,15 @@ strawb %<>% separate(col = Chemicals,
                      fill = "right")
 strawb %<>% mutate(details = str_extract(str_trim(details) ,"[^(].*[^)]") )
 
-strawb %<>% mutate(type = str_trim(type))
+strawb %<>% mutate(chemicaltype = str_trim("chemical type"))
 
-strawb_chem <- strawb %>% filter((type=="FUNGICIDE")|
-                                   (type=="HERBICIDE")|
-                                   (type=="INSECTICIDE"))
+strawb_chem <- strawb %>% filter(("chemical type"=="FUNGICIDE")|
+                                   ("chemical type"=="HERBICIDE")|
+                                   ("chemical type"=="INSECTICIDE"))
 
-strawb_other <- strawb %>% filter(type=="OTHER")
-head(strawb_other)
-strawb_na <- strawb %>% filter(is.na(type)==TRUE)
+strawb_other <- strawb %>% filter("chemical type"=="OTHER")
+#head(strawb_other)
+strawb_na <- strawb %>% filter(is.na("chemical type")==TRUE)
 
 pesticides <- filter(pest, !is.na(Pesticide))
 strawb_select <- filter(strawb, !is.na(details))
@@ -72,4 +73,9 @@ strawb_select <- mutate(strawb_select, chemical_name = trimws(chemical_name))
 
 joineddata <- inner_join(strawb_select, pesticides, by = c("chemical_name" = "Pesticide"))
 
-view(joineddata)
+#chemical; chemical type (insecticide, herbicide, fungicide, fertilizer);
+#toxicity-human/bee;toxicity-level;state;year;measurement(s)
+names(joineddata)[8] <- "Measurment(s)"
+finaldata <- select(joineddata,"Year","State","chemical type","Measurment(s)")
+
+view(finaldata)
