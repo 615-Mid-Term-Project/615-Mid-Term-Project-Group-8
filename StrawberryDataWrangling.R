@@ -287,13 +287,13 @@ joined <- inner_join(strawb_select, pesticides, by = c("chemical_name" = "Pestic
 #  to find relationship, 
 
 names(joined)<-make.names(names(joined),unique = TRUE)
-joined$Value <- as.numeric(joined$Value)
+joined$Value <- as.numeric(gsub(",", "",joined$Value))
 
 groups <- unique(joined$discription)
 for (group in groups){
   df <- filter(joined, discription == group)
   print(ggplot(data = df) + 
-    geom_jitter(mapping = aes(x = Bee.Toxins, y=Value, color = Bee.Toxins))+
+    geom_jitter(mapping = aes(x = Bee.Toxins, y=Value, color = Bee.Toxins), size = 3)+
       ggtitle(group))
 }
 
@@ -301,7 +301,7 @@ states <- unique(joined$State)
 for (state in states){
   df <- filter(joined, State == state, discription == " MEASURED IN PCT OF AREA BEARING")
   print(ggplot(data = df) + 
-          geom_jitter(mapping = aes(x = Bee.Toxins, y=Value, color = Bee.Toxins))+
+          geom_jitter(mapping = aes(x = Bee.Toxins, y=Value, color = Bee.Toxins), size = 3)+
           ggtitle(state))
 }
 
