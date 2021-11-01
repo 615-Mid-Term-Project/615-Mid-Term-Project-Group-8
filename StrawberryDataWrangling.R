@@ -282,3 +282,26 @@ pesticides <- mutate(pesticides, Pesticide = toupper(Pesticide))
 strawb_select <- mutate(strawb_select, chemical_name = trimws(chemical_name))
 
 joined <- inner_join(strawb_select, pesticides, by = c("chemical_name" = "Pesticide"))
+#Question: Explore relationship between use of chemical 
+#  (effectiveness?) and amount of bee toxin it has. Stratify by state
+#  to find relationship, 
+
+names(joined)<-make.names(names(joined),unique = TRUE)
+joined$Value <- as.numeric(joined$Value)
+
+groups <- unique(joined$discription)
+for (group in groups){
+  df <- filter(joined, discription == group)
+  print(ggplot(data = df) + 
+    geom_jitter(mapping = aes(x = Bee.Toxins, y=Value, color = Bee.Toxins))+
+      ggtitle(group))
+}
+
+states <- unique(joined$State)
+for (state in states){
+  df <- filter(joined, State == state, discription == " MEASURED IN PCT OF AREA BEARING")
+  print(ggplot(data = df) + 
+          geom_jitter(mapping = aes(x = Bee.Toxins, y=Value, color = Bee.Toxins))+
+          ggtitle(state))
+}
+
