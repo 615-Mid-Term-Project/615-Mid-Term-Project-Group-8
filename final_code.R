@@ -208,48 +208,49 @@ table(joined_new_2016_OREGON$"Bee Toxins")
 joined_new_2016_WASHINGTON <- joined_new_2016[joined_new_2016$State=="WASHINGTON",]
 table(joined_new_2016_WASHINGTON$"Bee Toxins")
 
-## pie plot in 2019
-freq<-c(30,15,35)
-piepercent<- paste(round(100*freq/sum(freq), 2), "%")
-pie1=pie(freq,labels = piepercent,main="2019_CALIFORNIA",col = rainbow(length(freq)),edges = 200, radius = 1)
-legend("bottomright",c("high","moderate","slight"),cex=0.5,fill=rainbow(length(freq)))
+## pie plot in CALIFORNIA
+par(mfrow = c(1, 3)) # Create a 2 x 2 plotting matrix
 
-freq<-c(20,10,25)
-piepercent<- paste(round(100*freq/sum(freq), 2), "%")
-pie1=pie(freq,labels = piepercent,main="2019_FLORIDA",col = rainbow(length(freq)),edges = 200, radius = 1)
-legend("bottomright",c("high","moderate","slight"),cex=0.5,fill=rainbow(length(freq)))
-
-## pie plot in 2018
-freq<-c(30,15,35)
-piepercent<- paste(round(100*freq/sum(freq), 2), "%")
-pie1=pie(freq,labels = piepercent,main="2018_CALIFORNIA",col = rainbow(length(freq)),edges = 200, radius = 1)
-legend("bottomright",c("high","moderate","slight"),cex=0.5,fill=rainbow(length(freq)))
-
-freq<-c(15,10,15)
-piepercent<- paste(round(100*freq/sum(freq), 2), "%")
-pie1=pie(freq,labels = piepercent,main="2018_FLORIDA",col = rainbow(length(freq)),edges = 200, radius = 1)
-legend("bottomright",c("high","moderate","slight"),cex=0.5,fill=rainbow(length(freq)))
-
-## pie plot in 2016
 freq<-c(30,15,35)
 piepercent<- paste(round(100*freq/sum(freq), 2), "%")
 pie1=pie(freq,labels = piepercent,main="2016_CALIFORNIA",col = rainbow(length(freq)),edges = 200, radius = 1)
-legend("bottomright",c("high","moderate","slight"),cex=0.5,fill=rainbow(length(freq)))
+
+freq<-c(30,15,35)
+piepercent<- paste(round(100*freq/sum(freq), 2), "%")
+pie1=pie(freq,labels = piepercent,main="2018_CALIFORNIA",col = rainbow(length(freq)),edges = 200, radius = 1)
+
+freq<-c(30,15,35)
+piepercent<- paste(round(100*freq/sum(freq), 2), "%")
+pie1=pie(freq,labels = piepercent,main="2019_CALIFORNIA",col = rainbow(length(freq)),edges = 200, radius = 1)
+legend("bottomleft",c("high","moderate","slight"),cex=1,fill=rainbow(length(freq)))
+
+## pie plot in FLORIDA
+par(mfrow = c(1, 3)) # Create a 2 x 2 plotting matrix
 
 freq<-c(15,15,25)
 piepercent<- paste(round(100*freq/sum(freq), 2), "%")
 pie1=pie(freq,labels = piepercent,main="2016_FLORIDA",col = rainbow(length(freq)),edges = 200, radius = 1)
-legend("bottomright",c("high","moderate","slight"),cex=0.5,fill=rainbow(length(freq)))
+
+freq<-c(15,10,15)
+piepercent<- paste(round(100*freq/sum(freq), 2), "%")
+pie1=pie(freq,labels = piepercent,main="2018_FLORIDA",col = rainbow(length(freq)),edges = 200, radius = 1)
+
+freq<-c(20,10,25)
+piepercent<- paste(round(100*freq/sum(freq), 2), "%")
+pie1=pie(freq,labels = piepercent,main="2019_FLORIDA",col = rainbow(length(freq)),edges = 200, radius = 1)
+legend("bottomleft",c("high","moderate","slight"),cex=1,fill=rainbow(length(freq)))
+
+## pie plot in OREGON & WASHINGTON
+par(mfrow = c(1, 2))
 
 freq<-c(10,0,10)
 piepercent<- paste(round(100*freq/sum(freq), 2), "%")
 pie1=pie(freq,labels = piepercent,main="2016_OREGON",col = rainbow(length(freq)),edges = 200, radius = 1)
-legend("bottomright",c("high","moderate","slight"),cex=0.5,fill=rainbow(length(freq)))
 
 freq<-c(10,5,15)
 piepercent<- paste(round(100*freq/sum(freq), 2), "%")
 pie1=pie(freq,labels = piepercent,main="2016_WASHINGTON",col = rainbow(length(freq)),edges = 200, radius = 1)
-legend("bottomright",legend=c("high","moderate","slight"),cex=0.5,fill=rainbow(length(freq)))
+legend("bottomright",legend=c("high","moderate","slight"),cex=0.4,fill=rainbow(length(freq)))
        
 ## map plot
 
