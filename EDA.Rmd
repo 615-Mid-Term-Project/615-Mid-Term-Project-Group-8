@@ -20,11 +20,9 @@ library(plotly)
 
 
 ```{r}
-#distinct(final_data, State)
-#distinct(final_data, chemical{_type)
-#EDA_visual <- function(State){
-
-#}
+names(joined)[4] <- "Measurement(s)"
+final_data <- select(joined,"Year","State","chemical_type","Measurement(s)","Value","Carcinogen","Hormone.Disruptor",
+                     "Neurotoxins","Developmental.or.Reproductive.Toxins","Bee.Toxins")
 final_data <- data.frame(final_data)
 #view(cal_data)
 Bee.toxins_LB <- subset(final_data, Measurement.s.==" MEASURED IN LB")
@@ -39,48 +37,8 @@ ggplot(Bee.toxins, aes(x = State, y = Value, fill = Bee.Toxins)) +
 After the bar group, we want to focus on the california.
 Funfact of Bee in California: 
 
-```{r}
-Bee.toxins <- data.frame(Bee.toxins)
-#Bee.toxins$State = tolower(Bee.toxins$State)
-#Bee.toxins
-#states<- statepop[,c("fips","abbr","full")]
-#states$full <- toupper(states$full)
-
-#Bee_map <- Bee.toxins %>% group_by(State)
-
-#names(Bee_map)[1] <- "full"
-
-#Bee_map <- full_join(states,Carcinogens_map_prep, by ="full" )
 
 
-plot_usmap(data = Bee.toxins, values = "Value", color = "blue") + 
-  scale_fill_discrete( name = "Bee Toxin") + 
-  labs(title = "Bee.Toxins") +
-  theme(legend.position = "right")
-
-```
-
-```{r}
-library(usmap)
-plot_usmap(regions = "states") + 
-  labs(title = "U.S. States",
-       subtitle = "This is a blank map of the United States.") + 
-  theme(panel.background=element_blank())
-```
-
-```{r}
-library(tidyverse)
-library(sf)
-library(plotly)
-Bee.Toxins <- read_sf("Bee.Toxins") %>%
-  st_zm() %>%
-  mutate(Value=sum(Value) %>% round(2))
-g <- ggplot(Bee.toxins) +
-  geom_sf(aes(fill=Value)) +
-  scale_fill_distiller("Bee.Toxins", palette="Spectral") +
-  ggtitle("Bee.Toxins")
-ggplotly(g)
-```
 
 ```{r}
 #This is an article about bee safe program."2018‑19"
@@ -88,42 +46,8 @@ ggplotly(g)
 # State law establishes CDFA’s authority to regulate bees in conjunction with DPR and CACs. Apiary owners or beekeepers are required by law to register the number of colonies and the location of each apiary with the CAC (or CDFA in the absence of a CAC). Regulations require any person intending to apply any pesticide labeled “toxic to bees” to a blossoming plant to ask the local CAC, or designee, whether there are registered beekeepers with colonies located within a one-mile radius of the application site. The CAC provides the pesticide applicator with the contact information of registered beekeepers who wish to be notified in the affected areas. The applicator must give these beekeepers 48 hours notification before the intended application. This notification period is intended to give beekeepers an opportunity to take action to protect their colonies, such as temporarily moving them.
 ```
 
-```{r}
-Bee.toxins <- mutate(Bee.toxins,Bee.Toxins=ifelse(is.na(Bee.Toxins),"none",Bee.Toxins))
-cal_Bee <- subset(Bee.toxins, State=="CALIFORNIA")
-distinct(cal_Bee,Year)
-cal_Bee$Value <- as.numeric(gsub(",","",cal_Bee$Value))
-ggplot(cal_Bee, aes(x = Year, y = Value, fill = Bee.Toxins)) +
-  geom_col(position = "identity", colour = "black") +
-  scale_fill_brewer(palette = "Pastel1")
+`
 
 
-```
-
-
-```{r}
-data <- data.frame(
-  name=c("2019","2018","2017"),
-  val=count(Value) )
-
-ggplot(data, aes(x = Year, y = Value, fill = Bee.Toxins)) +
-  geom_col(position = "dodge", colour = "black") +
-  scale_fill_brewer(palette = "Pastel1")
-data %>%
-  mutate(name = fct_reorder(name, desc(val))) %>%
-  ggplot( aes(x=name, y=val)) +
-    geom_bar(stat="identity", fill="#f68060", alpha=.6, width=.4) +
-    coord_flip() +
-    xlab("") +
-    theme_bw()
-
-```
-
-```{r}
-predx<- expand.grid(sex_m=c("women","men"),age_f=c("18-23","24-40","> 40"))
-predy<-predict(car_polr,newdata=predx,type = "p")
-ggplot(melt(cbind(predx,predy),id.vars = c("sex_m","age_f")))+
-  geom_bar(stat="identity")+aes(x=age_f,y=value, fill=variable)+
-  facet_grid(~sex_m)
 ```
 
