@@ -459,7 +459,7 @@ ggplot(cali_chem_summary_ordered, aes(x = Year, y = percentage, fill = `Bee Toxi
 
 
 
-
+#
 #stacked plot
 ggplot(cali_chem_summary_ordered, aes(fill = `Bee Toxins`, y = percentage, x = Year)) + 
   geom_bar(position="stack", stat="identity")
