@@ -1,0 +1,47 @@
+---
+output: 
+  revealjs::revealjs_presentation:
+    theme: black
+    highlight: pygments 
+    css: reveal.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+<section data-background-opacity=0.2
+         data-background-image="Strawberry-Bee.jpg">
+   <h1 style="margin-top:35px;text-align:center;color=black;font-family:verdana;font-size:50px;">
+Group 8: Bee Toxin Levels in Strawberry Chemicals</h1>
+
+<p style="margin-top:535px;text-align:center;font-family:verdana;font-size:35px;color=black">Yujia Wang, Jack Carbaugh, Xiang Li, Handing Zhang</p>
+
+#### image source --  https://ucanr.edu/blogs/blogcore/postdetail.cfm?postnum=4816
+
+</section>
+
+## R Markdown
+
+This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
+
+## Slide with Bullets
+
+- Bullet 1
+- Bullet 2
+- Bullet 3
+
+## Slide with R Output
+
+```{r cars, echo = TRUE}
+summary(cars)
+```
+
+## Slide with Plot
+
+```{r pressure}
+plot(pressure)
+```
+

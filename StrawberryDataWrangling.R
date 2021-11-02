@@ -299,9 +299,10 @@ for (group in groups){
 
 states <- unique(joined$State)
 for (state in states){
-  df <- filter(joined, State == state, discription == " MEASURED IN PCT OF AREA BEARING")
+  df <- filter(joined, State == state, discription == " MEASURED IN LB")
   print(ggplot(data = df) + 
           geom_jitter(mapping = aes(x = Bee.Toxins, y=Value, color = Bee.Toxins), size = 3)+
-          ggtitle(state))
+          ggtitle(state)+
+          xlab("Bee Toxin Level")+
+          ylab(""))
 }
-
