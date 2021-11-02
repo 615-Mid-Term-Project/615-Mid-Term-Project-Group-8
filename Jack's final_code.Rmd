@@ -25,7 +25,7 @@ joined <- inner_join(strawb_select, pesticides, by = c("chemical_name" = "Pestic
 #point plot
 
 names(joined)<-make.names(names(joined),unique = TRUE)
-joined$Value <- as.numeric(gsub(",", "",joined$Value))
+joined$Value <- as.numeric(gsub(",", "",joined$Value)) # make "," into " "
 
 groups <- unique(joined$discription)
 for (group in groups){

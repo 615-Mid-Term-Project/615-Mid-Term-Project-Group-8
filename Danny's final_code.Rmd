@@ -68,6 +68,8 @@ pesticides1 <- pesticides %>%
 joined2 <- left_join(strawb_select, pesticides1,
                      by = "chemical_name")
 
+######draw the plot
+
 # subset by state
 california <- joined2 %>% 
   filter(State == "CALIFORNIA")
