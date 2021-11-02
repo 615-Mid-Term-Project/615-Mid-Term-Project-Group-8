@@ -254,21 +254,23 @@ legend("bottomright",legend=c("high","moderate","slight"),cex=0.5,fill=rainbow(l
 ## map plot
 
 library(leaflet)
-leaflet() %>%
+a<- leaflet() %>%
   addTiles() %>%
   addMarkers(lng=-118.8, lat=36.7, popup="CALIFORNIA") %>%
   addMarkers(lng=-81.5, lat=27.8, popup="FLORIDA") %>%
   addMarkers(lng=-120.7, lat=44.0, popup="OREGON") %>%
   addMarkers(lng=-120.2, lat=47.3, popup="WASHINGTON")
+a
 
 library(usmap)
 library(ggplot2)
 state<-c("CALIFORNIA","FLORIDA","OREGON","WASHINGTON")
 observation<-c(48,30,4,6)
 dataframe <- data.frame(state,observation)
-plot_usmap(data = dataframe, values = "observation", color = "red") + 
+b<-plot_usmap(data = dataframe, values = "observation", color = "red") + 
   scale_fill_continuous(name = "observation", label = scales::comma) + 
   theme(legend.position = "right")
+b
 
 
 
