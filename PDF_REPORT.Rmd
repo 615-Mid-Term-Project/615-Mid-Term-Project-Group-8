@@ -10,26 +10,27 @@ knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
 library(magrittr)
 library(dplyr)
+library(plotrix)
+library(wesanderson)
 ```
 
-# Group 8 Strawberry Report
-## After wrangling data, we only have dataset from 4 states, 
-## which are California, Florida, Oregon and Washington. 
-## And we filtered the whole dataset by measured in pounds.
-## By counting the observation grouped by State, we have a map plot,
-## which showed in the california, there are more observations.
+# Introduction
+After wrangling data, we have the dataset from  only 4 states, which are California, Florida, Oregon and Washington. And we filtered the whole dataset by measured in pounds. By counting the observation grouped by State, we have a map plot, which showed in the California, there are more observations. 
 ```{r}
 ## map plot
 
 library(usmap)
 library(ggplot2)
+
 state<-c("CALIFORNIA","FLORIDA","OREGON","WASHINGTON")
 observation<-c(48,30,4,6)
 dataframe <- data.frame(state,observation)
-b<-plot_usmap(data = dataframe, values = "observation", color = "red") + 
-  scale_fill_continuous(name = "observation", label = scales::comma) + 
+b<-plot_usmap(data = dataframe, values = "observation", color = "blue") + 
+  scale_fill_continuous(low = "white", high = "purple",name = "observation", label = scales::comma) + 
   theme(legend.position = "right")
 b
+
+
 ```
 
 
@@ -151,6 +152,10 @@ joined_new<-select(joined,Year,State,discription,type,chemical_name,Value, Carci
 
 ```
 
+# Exploratory data analysis
+This barplot grouped by state shows the value of bee toxin levels, with years combined. 
+We can see that we have most data observations in California.
+
 ```{r}
 #names(joined)[4] <- "Measurement(s)"
 
@@ -164,6 +169,12 @@ plot <- ggplot(Bee.toxins, aes(x = State, y = Value, fill = Bee.Toxins)) +
   scale_fill_brewer(palette = "Pastel1")
 plot
 ```
+
+# Pie Plots
+
+The pie plots show in different years and states the percentage of different levels of bee toxins. 
+it shows the variance of bee toxin. Can show difference in states and years. 
+Map with 4 states showing how much of the chemical is being used.
 
 ```{r}
 ## Divide by "Year"(only have 2019\2018\2016),explore every "Year" by "State"
@@ -197,53 +208,59 @@ joined_new_2016_WASHINGTON <- joined_new_2016[joined_new_2016$State=="WASHINGTON
 #table(joined_new_2016_WASHINGTON$"Bee Toxins")
 
 ## pie plot in CALIFORNIA
-par(mfrow = c(1, 3)) # Create a 2 x 2 plotting matrix
+par(mfrow = c(1, 3)) # Create a 1 x 3 plotting matrix
 
 freq<-c(30,15,35)
 piepercent<- paste(round(100*freq/sum(freq), 2), "%")
-pie1=pie(freq,labels = piepercent,main="2016_CALIFORNIA",col = rainbow(length(freq)),edges = 200, radius = 1)
+pie1=pie(freq,labels = piepercent,main="2016_CALIFORNIA",col = terrain.colors(length(freq)),edges = 200, radius = 1)
 
 freq<-c(30,15,35)
 piepercent<- paste(round(100*freq/sum(freq), 2), "%")
-pie1=pie(freq,labels = piepercent,main="2018_CALIFORNIA",col = rainbow(length(freq)),edges = 200, radius = 1)
+pie1=pie(freq,labels = piepercent,main="2018_CALIFORNIA",col = terrain.colors(length(freq)),edges = 200, radius = 1)
 
 freq<-c(30,15,35)
 piepercent<- paste(round(100*freq/sum(freq), 2), "%")
-pie1=pie(freq,labels = piepercent,main="2019_CALIFORNIA",col = rainbow(length(freq)),edges = 200, radius = 1)
-legend("bottomleft",c("high","moderate","slight"),cex=1,fill=rainbow(length(freq)))
+pie1=pie(freq,labels = piepercent,main="2019_CALIFORNIA",col = terrain.colors(length(freq)),edges = 200, radius = 1)
+
+legend("bottom",c("high","moderate","slight"),cex=1,fill=terrain.colors(length(freq)))
+
 
 ## pie plot in FLORIDA
-par(mfrow = c(1, 3)) # Create a 2 x 2 plotting matrix
+par(mfrow = c(1, 3)) # Create a 1 x 3 plotting matrix
 
 freq<-c(15,15,25)
 piepercent<- paste(round(100*freq/sum(freq), 2), "%")
-pie1=pie(freq,labels = piepercent,main="2016_FLORIDA",col = rainbow(length(freq)),edges = 200, radius = 1)
+pie1=pie(freq,labels = piepercent,main="2016_FLORIDA",col = terrain.colors(length(freq)),edges = 200, radius = 1)
 
 freq<-c(15,10,15)
 piepercent<- paste(round(100*freq/sum(freq), 2), "%")
-pie1=pie(freq,labels = piepercent,main="2018_FLORIDA",col = rainbow(length(freq)),edges = 200, radius = 1)
+pie1=pie(freq,labels = piepercent,main="2018_FLORIDA",col = terrain.colors(length(freq)),edges = 200, radius = 1)
 
 freq<-c(20,10,25)
 piepercent<- paste(round(100*freq/sum(freq), 2), "%")
-pie1=pie(freq,labels = piepercent,main="2019_FLORIDA",col = rainbow(length(freq)),edges = 200, radius = 1)
-legend("bottomleft",c("high","moderate","slight"),cex=1,fill=rainbow(length(freq)))
+pie1=pie(freq,labels = piepercent,main="2019_FLORIDA",col = terrain.colors(length(freq)), edges = 200, radius = 1)
+
+legend("bottomleft",c("high","moderate","slight"),cex=1,fill=terrain.colors(length(freq)))
 
 ## pie plot in OREGON & WASHINGTON
-par(mfrow = c(1, 2))
+par(mfrow = c(1, 3))
 
 freq<-c(10,0,10)
 piepercent<- paste(round(100*freq/sum(freq), 2), "%")
-pie1=pie(freq,labels = piepercent,main="2016_OREGON",col = rainbow(length(freq)),edges = 200, radius = 1)
+pie1=pie(freq,labels = piepercent,main="2016_OREGON",col = terrain.colors(length(freq)),edges = 200, radius = 1)
 
 freq<-c(10,5,15)
 piepercent<- paste(round(100*freq/sum(freq), 2), "%")
-pie1=pie(freq,labels = piepercent,main="2016_WASHINGTON",col = rainbow(length(freq)),edges = 200, radius = 1)
-legend("bottomright",legend=c("high","moderate","slight"),cex=0.4,fill=rainbow(length(freq)))
+pie1=pie(freq,labels = piepercent,main="2016_WASHINGTON",col = terrain.colors(length(freq)),edges = 200, radius = 1)
+legend("bottomright",legend=c("high","moderate","slight"),cex=0.4,fill=terrain.colors(length(freq)))
        
 
 
 ```
 
+# Scatter Plots
+
+5 scatter plots show the splits amongst the measurement groups and 5 scatter plots that stratify state against bee toxin level
 
 ```{r,echo=FALSE,message=FALSE, warning=FALSE}
 #Jack's point plot
@@ -268,7 +285,16 @@ for (state in states){
 }
 ```
 
-```{r}
+# Bee Safe Program
+
+In the mean time, we found out an article about the California State law named Bee safe program, 
+which related to bees and pesticides. https://lao.ca.gov/Publications/Report/3793
+
+This State law requires that begin in 2018-2019, any person intending to apply any pesticide labeled “toxic to bees” to a blossoming plant to ask the local CAC, or designee, whether there are registered beekeepers with colonies located within a one-mile radius of the application site. The CAC provides the pesticide applicator with the contact information of registered beekeepers who wish to be notified in the affected areas. 
+
+Stacked Barplot showing percentage of use in terms of bee toxins based on the level over all 3 years.
+
+```{r,echo=FALSE,message=FALSE, warning=FALSE}
 # deal with pesticides1
 pesticides <- pesticides %>% 
   filter(!is.na(Pesticide))
@@ -350,4 +376,5 @@ ggplot(cali_chem_summary_ordered, aes(x = Year, y = percentage, fill = `Bee Toxi
 ggplot(cali_chem_summary_ordered, aes(fill = `Bee Toxins`, y = percentage, x = Year)) + 
   geom_bar(position="stack", stat="identity")+ scale_fill_brewer(palette = "Pastel1")
 ```
+
 
