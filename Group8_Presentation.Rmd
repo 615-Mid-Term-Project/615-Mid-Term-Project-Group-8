@@ -54,7 +54,7 @@ plot_Pies(joined)
 <p style="margin-top:175px;text-align:center;font-family:verdana;font-size:35px;color=black"> During the course of our EDA, we found an article about a recent law in California: the Bee Safe Program.  </p>
 [Here is a link to the article](https://lao.ca.gov/Publications/Report/3793)
 
-<p style="margin-top:175px;text-align:center;font-family:verdana;font-size:35px;color=black"> Beginning in 2018-2019, any person intending to use a pesticide labeled "toxic to bees" to a blossoming plant had to contact local beekeepers within a 1 mile radius </p>
+<p style="margin-top:175px;text-align:center;font-family:verdana;font-size:35px;color=black"> Beginning in 2018-2019, any person intending to use a pesticide labeled "toxic to bees" to a blossoming plant had to contact local beekeepers within 1 mile</p>
 
 
 ## The Effects of Bee Safe Program
