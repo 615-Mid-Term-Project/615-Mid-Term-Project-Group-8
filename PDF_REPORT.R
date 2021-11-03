@@ -167,8 +167,7 @@ plot_Cols <- function(df){
   plot <- ggplot(temp, aes(x = State, y = Value_Num, fill = Bee.Toxins)) +
     geom_col(position = "dodge", colour = "black") +
     scale_fill_brewer(palette = "Pastel1")
-  p2 <- ggplotly(plot, tooltip="text")
-  return(p2)
+  return(plot)
 }
 
 
@@ -256,88 +255,59 @@ plot_Pies <- function(df){
 
 # Bee Safe Barplots
 
-# deal with pesticides1
-pesticides <- pesticides %>% 
-  filter(!is.na(Pesticide))
-pesticides <- pesticides %>% 
-  mutate(Pesticide = toupper(Pesticide))
-pesticides1 <- pesticides %>% 
-  rename(chemical_name = Pesticide)
-
-# deal with joined2
-# install.packages("prob")
-joined2 <- left_join(strawb_new, pesticides1,
-                     by = "chemical_name")
-
-# subset by state
-california <- joined2 %>% 
-  filter(State == "CALIFORNIA")
-florida <- joined2 %>% 
-  filter(State == "FLORIDA")
-oregon <- joined2 %>% 
-  filter(State == "OREGON")
-washington <- joined2 %>% 
-  filter(State == "WASHINGTON")
-
-# subset by chemical type
-cali_chem <- california %>% filter((type=="FUNGICIDE")|
-                                     (type=="HERBICIDE")|
-                                     (type=="INSECTICIDE"))
-cali_other <- california %>% filter(type=="OTHER")
-
-# subset by no chemical
-cali_na <- california %>% filter(is.na(type)==TRUE)
-
-# chemical data are classified according to year,unit of measurement,chemical type
-cali_chem1 <- cali_chem %>% 
-  group_by(Year, type, discription) %>% 
-  summarise(count = n())
-
-# value as.numeric
-cali_chem$Value <- as.numeric(cali_chem$Value)
-
-# sum
-cali_chem1 <- cali_chem %>% 
-  group_by(Year, type, discription) %>% 
-  summarise(count = n(), value_sum = sum(Value))
-
-# measured in lb larger than other units of measurement
-aa <- !is.na(cali_chem$`Bee Toxins`)
-ind_C1 <- (!aa)*(1:dim(cali_chem)[1])
-r2 <- ind_C1[ind_C1>0]
-cali_chem$`Bee Toxins`[r2] <- "none"
-
-cali_chem_summary <- cali_chem %>% 
-  group_by(Year,`Bee Toxins`) %>% 
-  summarise(total_usage = sum(Value, na.rm = T))
-
-# change position of slight,none
-yy <- factor(as.factor(cali_chem_summary$`Bee Toxins`), levels = c("none", "slight" , "moderate", "high"))
-
-cali_chem_summary$`Bee Toxins` <- yy
-
-cali_chem_summary_ordered <- cali_chem_summary %>% 
-  arrange(Year,`Bee Toxins`)
-
-# total usage every year
-cali_chem_summary1 <- cali_chem_summary %>% 
-  group_by(Year) %>% 
-  summarise(useageofyear = sum(total_usage))
-
-# Bee toxicity of high, medium and low without use, percentage
-perc_col = matrix(cbind(cali_chem_summary_ordered$total_usage[1:4] / 6046.092 , cali_chem_summary_ordered$total_usage[5:8] / 9177.122, cali_chem_summary_ordered$total_usage[9:12] / 8457.764), nrow = 12)
-
-cali_chem_summary_ordered$percentage <- perc_col
-
-#bar plot
-ggplot(cali_chem_summary_ordered, aes(x = Year, y = percentage, fill = `Bee Toxins`)) +
-  geom_col(position = "dodge")+ scale_fill_brewer(palette = "Pastel1")
-
-#stacked plot
-ggplot(cali_chem_summary_ordered, aes(fill = `Bee Toxins`, y = percentage, x = Year)) + 
-  geom_bar(position="stack", stat="identity")+ scale_fill_brewer(palette = "Pastel2")
-
-
+# 
+# # subset by state
+# cali_chem <- joined %>% 
+#   filter(State == "CALIFORNIA")
+# 
+# # chemical data are classified according to year,unit of measurement,chemical type
+# cali_chem1 <- cali_chem %>% 
+#   group_by(Year, type, measurement) %>% 
+#   summarise(count = n())
+# 
+# 
+# # sum
+# cali_chem1 <- cali_chem %>% 
+#   group_by(Year, type, measurement) %>% 
+#   summarise(count = n(), value_sum = sum(Value_Num))
+# 
+# # measured in lb larger than other units of measurement
+# aa <- !is.na(cali_chem$`Bee Toxins`)
+# ind_C1 <- (!aa)*(1:dim(cali_chem)[1])
+# r2 <- ind_C1[ind_C1>0]
+# cali_chem$`Bee Toxins`[r2] <- "none"
+# 
+# cali_chem_summary <- cali_chem %>% 
+#   group_by(Year,Bee.Toxins) %>% 
+#   summarise(total_usage = sum(Value_Num, na.rm = T))
+# 
+# # change position of slight,none
+# yy <- factor(as.factor(cali_chem_summary$Bee.Toxins), levels = c("none", "slight" , "moderate", "high"))
+# 
+# cali_chem_summary$Bee.Toxins <- yy
+# 
+# cali_chem_summary_ordered <- cali_chem_summary %>% 
+#   arrange(Year,Bee.Toxins)
+# 
+# # total usage every year
+# cali_chem_summary1 <- cali_chem_summary %>% 
+#   group_by(Year) %>% 
+#   summarise(useageofyear = sum(total_usage))
+# 
+# # Bee toxicity of high, medium and low without use, percentage
+# perc_col = matrix(cbind(cali_chem_summary_ordered$total_usage[1:4] / 6046.092 , cali_chem_summary_ordered$total_usage[5:8] / 9177.122, cali_chem_summary_ordered$total_usage[9:12] / 8457.764), nrow = 12)
+# 
+# cali_chem_summary_ordered$percentage <- perc_col
+# 
+# #bar plot
+# ggplot(cali_chem_summary_ordered, aes(x = Year, y = percentage, fill = Bee.Toxins)) +
+#   geom_col(position = "dodge")+ scale_fill_brewer(palette = "Pastel1")
+# 
+# #stacked plot
+# ggplot(cali_chem_summary_ordered, aes(fill = Bee.Toxins, y = percentage, x = Year)) + 
+#   geom_bar(position="stack", stat="identity")+ scale_fill_brewer(palette = "Pastel2")
+# 
+# 
 
 
 
