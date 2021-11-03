@@ -8,7 +8,7 @@ state<-c("CALIFORNIA","FLORIDA","OREGON","WASHINGTON")
 observation<-c(48,30,4,6)
 dataframe <- data.frame(state,observation)
 viz <- plot_usmap(data = dataframe, values = "observation", color = "red") + 
-  scale_fill_continuous(name = "observation", label = scales::comma) + 
+  scale_fill_continuous(low = "white", high = "purple",name = "observation", label = scales::comma) + 
   theme(legend.position = "right")
 return(viz)
 }
@@ -210,44 +210,44 @@ plot_Pies <- function(df){
   
   freq<-c(30,15,35)
   piepercent<- paste(round(100*freq/sum(freq), 2), "%")
-  pie1=pie(freq,labels = piepercent,main="2016_CALIFORNIA",col = rainbow(length(freq)),edges = 200, radius = 1)
+  pie1=pie(freq,labels = piepercent,main="2016_CALIFORNIA",col = terrain.colors(length(freq)),edges = 200, radius = 1)
   
   freq<-c(30,15,35)
   piepercent<- paste(round(100*freq/sum(freq), 2), "%")
-  pie1=pie(freq,labels = piepercent,main="2018_CALIFORNIA",col = rainbow(length(freq)),edges = 200, radius = 1)
+  pie1=pie(freq,labels = piepercent,main="2018_CALIFORNIA",col = terrain.colors(length(freq)),edges = 200, radius = 1)
   
   freq<-c(30,15,35)
   piepercent<- paste(round(100*freq/sum(freq), 2), "%")
-  pie1=pie(freq,labels = piepercent,main="2019_CALIFORNIA",col = rainbow(length(freq)),edges = 200, radius = 1)
-  legend("bottomleft",c("high","moderate","slight"),cex=1,fill=rainbow(length(freq)))
+  pie1=pie(freq,labels = piepercent,main="2019_CALIFORNIA",col = terrain.colors(length(freq)),edges = 200, radius = 1)
+  legend("bottomleft",c("high","moderate","slight"),cex=1,fill=terrain.colors(length(freq)))
   
   ## pie plot in FLORIDA
   par(mfrow = c(1, 3)) # Create a 2 x 2 plotting matrix
   
   freq<-c(15,15,25)
   piepercent<- paste(round(100*freq/sum(freq), 2), "%")
-  pie1=pie(freq,labels = piepercent,main="2016_FLORIDA",col = rainbow(length(freq)),edges = 200, radius = 1)
+  pie1=pie(freq,labels = piepercent,main="2016_FLORIDA",col = terrain.colors(length(freq)),edges = 200, radius = 1)
   
   freq<-c(15,10,15)
   piepercent<- paste(round(100*freq/sum(freq), 2), "%")
-  pie1=pie(freq,labels = piepercent,main="2018_FLORIDA",col = rainbow(length(freq)),edges = 200, radius = 1)
+  pie1=pie(freq,labels = piepercent,main="2018_FLORIDA",col = terrain.colors(length(freq)),edges = 200, radius = 1)
   
   freq<-c(20,10,25)
   piepercent<- paste(round(100*freq/sum(freq), 2), "%")
-  pie1=pie(freq,labels = piepercent,main="2019_FLORIDA",col = rainbow(length(freq)),edges = 200, radius = 1)
-  legend("bottomleft",c("high","moderate","slight"),cex=1,fill=rainbow(length(freq)))
+  pie1=pie(freq,labels = piepercent,main="2019_FLORIDA",col = terrain.colors(length(freq)),edges = 200, radius = 1)
+  legend("bottomleft",c("high","moderate","slight"),cex=1,fill=terrain.colors(length(freq)))
   
   ## pie plot in OREGON & WASHINGTON
   par(mfrow = c(1, 2))
   
   freq<-c(10,0,10)
   piepercent<- paste(round(100*freq/sum(freq), 2), "%")
-  pie1=pie(freq,labels = piepercent,main="2016_OREGON",col = rainbow(length(freq)),edges = 200, radius = 1)
+  pie1=pie(freq,labels = piepercent,main="2016_OREGON",col = terrain.colors(length(freq)),edges = 200, radius = 1)
   
   freq<-c(10,5,15)
   piepercent<- paste(round(100*freq/sum(freq), 2), "%")
-  pie1=pie(freq,labels = piepercent,main="2016_WASHINGTON",col = rainbow(length(freq)),edges = 200, radius = 1)
-  legend("bottomright",legend=c("high","moderate","slight"),cex=0.4,fill=rainbow(length(freq)))
+  pie1=pie(freq,labels = piepercent,main="2016_WASHINGTON",col = terrain.colors(length(freq)),edges = 200, radius = 1)
+  legend("bottomright",legend=c("high","moderate","slight"),cex=0.4,fill=terrain.colors(length(freq)))
 }
 
 

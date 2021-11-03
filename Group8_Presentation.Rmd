@@ -51,14 +51,15 @@ plot_Pies(joined)
 ```
 
 ## Focus: Bee Safe Program
-<p style="margin-top:175px;text-align:center;font-family:verdana;font-size:35px;color=black"> During the course of our EDA, we found an article about a recent law in California: the Bee Safe Program </p>
+<p style="margin-top:175px;text-align:center;font-family:verdana;font-size:35px;color=black"> During the course of our EDA, we found an article about a recent law in California: the Bee Safe Program.  </p>
+[Here is a link to the article](https://lao.ca.gov/Publications/Report/3793)
 
 <p style="margin-top:175px;text-align:center;font-family:verdana;font-size:35px;color=black"> Beginning in 2018-2019, any person intending to use a pesticide labeled "toxic to bees" to a blossoming plant had to contact local beekeepers within a 1 mile radius </p>
 
 
 ## The Effects of Bee Safe Program
 
-```{r, echo=FALSE, out.width = "50%", message= FALSE, warning = FALSE}
+```{r, echo=FALSE, message= FALSE, warning = FALSE}
 library(tidyverse)
 library(magrittr)
 library(dplyr)
@@ -249,12 +250,21 @@ perc_col = matrix(cbind(cali_chem_summary_ordered$total_usage[1:4] / 6046.092 , 
 cali_chem_summary_ordered$percentage <- perc_col
 
 #bar plot
-ggplot(cali_chem_summary_ordered, aes(x = Year, y = percentage, fill = `Bee Toxins`)) +
+b1 <- ggplot(cali_chem_summary_ordered, aes(x = Year, y = percentage, fill = `Bee Toxins`)) +
   geom_col(position = "dodge")+ scale_fill_brewer(palette = "Pastel1")
 
+ggplotly(b1)
+
+
+```
+
+## The Effects of Bee Safe Program
+```{r, echo=FALSE, message= FALSE, warning = FALSE}
 #stacked plot
-ggplot(cali_chem_summary_ordered, aes(fill = `Bee Toxins`, y = percentage, x = Year)) + 
+b2 <- ggplot(cali_chem_summary_ordered, aes(fill = `Bee Toxins`, y = percentage, x = Year)) + 
   geom_bar(position="stack", stat="identity")+ scale_fill_brewer(palette = "Pastel2")
+
+ggplotly(b2)
 ```
 
 
