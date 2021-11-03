@@ -269,7 +269,7 @@ ggplotly(b2)
 
 
 ## Shiny App
-<p style="margin-top:175px;text-align:center;font-family:verdana;font-size:35px;color=black"> Our Shiny app helps explore the changing Bee Toxin levels: </p>
+<p style="margin-top:175px;text-align:center;font-family:verdana;font-size:35px;color=black"> Our Shiny app helps show our EDA process: </p>
 
 
 
