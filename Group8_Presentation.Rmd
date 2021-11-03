@@ -15,33 +15,55 @@ knitr::opts_chunk$set(echo = FALSE)
    <h1 style="margin-top:35px;text-align:center;color=black;font-family:verdana;font-size:50px;">
 Group 8: Bee Toxin Levels in Strawberry Chemicals</h1>
 
-<p style="margin-top:535px;text-align:center;font-family:verdana;font-size:35px;color=black">Yujia Wang, Jack Carbaugh, Xiang Li, Handing Zhang</p>
+<p style="margin-top:475px;text-align:center;font-family:verdana;font-size:35px;color=black">Yujia Wang, Jack Carbaugh, Xiang Li, Danny Zhang</p>
 
 #### image source --  https://ucanr.edu/blogs/blogcore/postdetail.cfm?postnum=4816
 
 </section>
 
-## R Markdown
+## Map of Distribution of Data
 
-This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
-
-## Slide with Bullets
-
-- Bullet 1
-- Bullet 2
-- Bullet 3
-
-## Slide with R Output
-
-```{r cars, echo = TRUE}
-summary(cars)
+```{r, echo=FALSE, message= FALSE, warning = FALSE}
+source(file = "PDF_REPORT.R", echo = FALSE)
+freq_map()
 ```
 
-## Slide with Plot
+## Measurement Exploration
 
-```{r pressure}
-plot(pressure)
+```{r, echo=FALSE, out.width = "33%", message= FALSE, warning = FALSE}
+source(file = "PDF_REPORT.R", echo = FALSE)
+plot_Measurements(joined)
 ```
+
+## Stratifying by State
+
+```{r, echo=FALSE, out.width = "33%", out.height="50%", message= FALSE, warning = FALSE}
+source(file = "PDF_REPORT.R", echo = FALSE)
+plot_Points(joined)
+plot_Cols(joined)
+```
+
+## Stratifying by State and Year
+
+```{r, echo=FALSE, out.width = "50%", message= FALSE, warning = FALSE}
+source(file = "PDF_REPORT.R", echo = FALSE)
+plot_Pies(joined)
+```
+
+## Focus: Bee Safe Program
+<p style="margin-top:175px;text-align:center;font-family:verdana;font-size:35px;color=black"> During the course of our EDA, we found an article about a recent law in California: the Bee Safe Program </p>
+
+<p style="margin-top:175px;text-align:center;font-family:verdana;font-size:35px;color=black"> Beginning in 2018-2019, any person intending to use a pesticide labeled "toxic to bees" to a blossoming plant had to contact local beekeepers within a 1 mile radius </p>
+
+
+## Stratifying by State and Year
+
+```{r, echo=FALSE, out.width = "50%", message= FALSE, warning = FALSE}
+source(file = "PDF_REPORT.R", echo = FALSE)
+plot_Pies(joined)
+```
+
+
+
+
 
