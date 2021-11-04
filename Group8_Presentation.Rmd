@@ -1,0 +1,81 @@
+---
+output: 
+  revealjs::revealjs_presentation:
+    theme: black
+    highlight: pygments 
+    css: reveal.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+<section data-background-opacity=0.2
+         data-background-image="Strawberry-Bee.jpg">
+   <h1 style="margin-top:35px;text-align:center;color=black;font-family:verdana;font-size:50px;">
+Group 8: Bee Toxin Levels in Strawberry Chemicals</h1>
+
+<p style="margin-top:475px;text-align:center;font-family:verdana;font-size:35px;color=black">Yujia Wang, Jack Carbaugh, Xiang Li, Danny Zhang</p>
+
+#### image source --  https://ucanr.edu/blogs/blogcore/postdetail.cfm?postnum=4816
+
+</section>
+
+## Map of Distribution of Data
+
+```{r, echo=FALSE, message= FALSE, warning = FALSE}
+source(file = "DataWrangling_and_Visualization.R", echo = FALSE)
+freq_map()
+```
+
+## Measurement Exploration
+
+```{r, echo=FALSE, out.width = "33%", message= FALSE, warning = FALSE}
+source(file = "DataWrangling_and_Visualization.R", echo = FALSE)
+plot_Measurements(joined)
+```
+
+## Stratifying by State
+
+```{r, echo=FALSE, out.width = "33%", out.height="50%", message= FALSE, warning = FALSE}
+source(file = "DataWrangling_and_Visualization.R", echo = FALSE)
+plot_Points(joined)
+plot_Cols(joined)
+```
+
+## Stratifying by State and Year
+
+```{r, echo=FALSE, out.width = "50%", message= FALSE, warning = FALSE}
+source(file = "DataWrangling_and_Visualization.R", echo = FALSE)
+plot_Pies(joined)
+```
+
+## Focus: Bee Safe Program
+<p style="margin-top:175px;text-align:center;font-family:verdana;font-size:35px;color=black"> During the course of our EDA, we found an article about a recent law in California: the Bee Safe Program.  </p>
+[Here is a link to the article](https://lao.ca.gov/Publications/Report/3793)
+
+<p style="margin-top:175px;text-align:center;font-family:verdana;font-size:35px;color=black"> Beginning in 2018-2019, any person intending to use a pesticide labeled "toxic to bees" to a blossoming plant had to contact local beekeepers within 1 mile</p>
+
+
+## The Effects of Bee Safe Program
+
+```{r, echo=FALSE, message= FALSE, warning = FALSE}
+source(file = "DataWrangling_and_Visualization.R", echo = FALSE)
+ggplotly(plot_bar(cali_chem_summary_ordered))
+
+```
+
+## The Effects of Bee Safe Program
+```{r, echo=FALSE, message= FALSE, warning = FALSE}
+source(file = "DataWrangling_and_Visualization.R", echo = FALSE)
+ggplotly(plot_stacked_bar(cali_chem_summary_ordered))
+```
+
+
+## Shiny App
+<p style="margin-top:175px;text-align:center;font-family:verdana;font-size:35px;color=black"> Our Shiny app helps show our EDA process: </p>
+
+
+
+
+

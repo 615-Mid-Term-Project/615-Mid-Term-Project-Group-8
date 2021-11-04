@@ -1,0 +1,84 @@
+---
+title: "STRAWBERRY_REPORT BY GROUP 8"
+author: "Group 8"
+date: "11/1/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE,echo=FALSE,message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(magrittr)
+library(dplyr)
+library(plotrix)
+library(wesanderson)
+
+```
+
+# Introduction
+After wrangling the data, we have the values from only 4 states, which are California, Florida, Oregon and Washington. We then filtered the whole dataset by measuring in pounds. By counting the observations grouped by state, we have a map plot, which shows that in California, there are more observations. The topic we want to explore is the bee toxin levels in strawberry chemicals, specifically in California.
+
+# Map of Distribution of Data
+
+```{r,echo=FALSE,message=FALSE, warning=FALSE}
+## map plot
+source(file = "DataWrangling_and_Visualization.R", echo = FALSE)
+freq_map()
+```
+
+\pagebreak
+# Exploratory data analysis
+
+First, we created a barplot grouped by states, showing the value of bee toxin levels, with years combined. 
+We can see that we have most data observations in California.
+
+```{r}
+plot_Cols(joined)
+```
+
+\pagebreak
+# Pie Plots
+
+The pie plots show in different years and states the percentage of chemicals with different levels of bee toxins. 
+These show the variance of bee toxin.
+
+```{r,echo=FALSE,message=FALSE, warning=FALSE, fig.height = 4}
+plot_Pies(joined)
+```
+
+\pagebreak
+
+# Scatter Plots
+
+First, we have 5 scatter plots that show the splits among the measurement groups, which are measured in LB, measured in LB/ACRE/APPLICATION, measured in LB/ACRE/YEAR, measured in NUMBER and measured in PCT of AREA BEARING.
+After we decided to focus on the measured in LB and bee toxins, we have 4 scatter plots that stratify state against bee toxin level.
+
+
+
+```{r,echo=FALSE,message=FALSE, warning=FALSE, fig.height = 4}
+plot_Measurements(joined)
+plot_Points(joined)
+```
+\pagebreak
+
+# Bee Safe Program
+
+In the mean time, we found an article about the California State law named Bee safe program, 
+which related to bees and pesticides. https://lao.ca.gov/Publications/Report/3793
+
+This State law requires that beginning in 2018-2019, any person intending to apply any pesticide labeled “toxic to bees” to a blossoming plant must ask the local CAC, or designee, whether there are registered beekeepers with colonies located within a one-mile radius of the application site. The CAC provides the pesticide applicator with the contact information of registered beekeepers who wish to be notified in the affected areas. 
+
+We would like to know that whether the State Law made the strawberry farmers think that there is a lot of work to worry and they decided to use less toxic pesticides, or in some other way.
+
+# Stacked Barplot
+
+The stacked barplot shows percentage of use in terms of bee toxins based on the level over all 3 years.
+
+```{r,echo=FALSE,message=FALSE, warning=FALSE}
+plot_stacked_bar(cali_chem_summary_ordered)
+```
+
+# Conclusion
+
+Since we focused on the Bee Safe Program in California, based on the purple bar, we can see that the percentage of the pesticide's usage which included high bee toxins is decreasing. Therefore, we can roughly draw a conclusion that the Bee Safe Program is indeed effective. In the future, we should analyze more related data sets and give a more accurate conclusion.
+
