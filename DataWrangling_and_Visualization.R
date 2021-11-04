@@ -162,8 +162,8 @@ plot_Points <- function(df){
 
 
 plot_Cols <- function(df){
-  temp <- filter(df, measurement == " MEASURED IN LB")
-  plot <- ggplot(temp, aes(x = State, y = Value_Num, fill = Bee.Toxins)) +
+  temp <- filter(df, measurement == " MEASURED IN LB", Bee.Toxins != "")
+  plot <- ggplot(temp, aes(x = State, y = Value, fill = Bee.Toxins)) +
     geom_col(position = "dodge", colour = "black") +
     scale_fill_brewer(palette = "Pastel1")
   return(plot)
